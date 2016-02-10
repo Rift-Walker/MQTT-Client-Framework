@@ -747,4 +747,6 @@ typedef void (^MQTTPublishHandler)(NSError *error);
   */
 - (void)close;
 
+- (void)startDupTimer;
+
 @end

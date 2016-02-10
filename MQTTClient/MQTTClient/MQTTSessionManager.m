@@ -380,6 +380,7 @@
                         NSNumber *gQos = gQoss[i];
                         [self.effectiveSubscriptions setObject:gQos forKey:topic];
                         self.effectiveSubscriptions = self.effectiveSubscriptions;
+                        [self.session startDupTimer];
                     }
                 }
             }];

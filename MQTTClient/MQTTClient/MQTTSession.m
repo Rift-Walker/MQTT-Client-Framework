@@ -533,14 +533,6 @@
                                 self.status = MQTTSessionStatusConnected;
                                 self.sessionPresent = ((bytes[0] & 0x01) == 0x01);
                                 
-                                self.checkDupTimer = [NSTimer timerWithTimeInterval:DUPLOOP
-                                                                             target:self
-                                                                           selector:@selector(checkDup:)
-                                                                           userInfo:nil
-                                                                            repeats:YES];
-                                [self.runLoop addTimer:self.checkDupTimer forMode:self.runLoopMode];
-                                [self checkDup:self.checkDupTimer];
-                                
                                 self.keepAliveTimer = [NSTimer timerWithTimeInterval:self.keepAliveInterval
                                                                               target:self
                                                                             selector:@selector(keepAlive:)
@@ -653,6 +645,16 @@
                 break;
         }
     }
+}
+
+- (void)startDupTimer {
+    self.checkDupTimer = [NSTimer timerWithTimeInterval:DUPLOOP
+                                                 target:self
+                                               selector:@selector(checkDup:)
+                                               userInfo:nil
+                                                repeats:YES];
+    [self.runLoop addTimer:self.checkDupTimer forMode:self.runLoopMode];
+    [self checkDup:self.checkDupTimer];
 }
 
 - (void)handlePublish:(MQTTMessage*)msg {
