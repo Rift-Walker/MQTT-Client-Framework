@@ -330,6 +330,7 @@
         [self reconnect];
     }else{
         DDLogVerbose(@"[MQTTSessionManager] connecting");
+	self.state = MQTTSessionManagerStateStarting;
         [self connectToInternal];
     }
 }
